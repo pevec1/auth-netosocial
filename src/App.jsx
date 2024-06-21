@@ -35,7 +35,7 @@ function App() {
   const loaddata = () => {
     console.log(datasubmit);
     setTimeout(() => {
-      fetch("https://backend-auth-0xh2.onrender.com/auth", {
+      fetch("https://authback.axareact.ru/auth", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -63,7 +63,7 @@ function App() {
 
   const funcGetToken = () => {
     if (token) {
-      fetch("https://backend-auth-0xh2.onrender.com/private/me", {
+      fetch("https://authback.axareact.ru/private/me", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -86,7 +86,7 @@ function App() {
   }, [token]);
 
   const funcGetNews = () => {
-    fetch("https://backend-auth-0xh2.onrender.com/private/news", {
+    fetch("https://authback.axareact.ru/private/news", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
