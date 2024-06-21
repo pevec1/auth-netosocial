@@ -7,10 +7,8 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
 import TextField from "@mui/material/TextField";
 import Avatar from "@mui/material/Avatar";
-import { MarginOutlined } from "@mui/icons-material";
 function App() {
   const [data, setData] = useState({ login: "", password: "" });
   const [datasubmit, setDataSubmit] = useState({ login: "", password: "" });
@@ -35,7 +33,7 @@ function App() {
   const loaddata = () => {
     console.log(datasubmit);
     setTimeout(() => {
-      fetch("https://backend-auth-0xh2.onrender.com/auth", {
+      fetch("https://authback.axareact.ru/auth", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -63,7 +61,7 @@ function App() {
 
   const funcGetToken = () => {
     if (token) {
-      fetch("https://backend-auth-0xh2.onrender.com/private/me", {
+      fetch("https://authback.axareact.ru/private/me", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -86,7 +84,7 @@ function App() {
   }, [token]);
 
   const funcGetNews = () => {
-    fetch("https://backend-auth-0xh2.onrender.com/private/news", {
+    fetch("https://authback.axareact.ru/private/news", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -100,7 +98,7 @@ function App() {
       })
       .catch((error) => {
         console.error("Error:", error);
-      })
+      });
     }
 
   useEffect(() => {
