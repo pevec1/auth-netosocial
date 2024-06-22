@@ -122,7 +122,7 @@ function App() {
             sx={{
               width: "100%",
               height: 100,
-              bgcolor: "lightgrey",
+              bgcolor: "lightbeige",
               justifyContent: "center",
             }}
           >
@@ -160,7 +160,7 @@ function App() {
             padding: "20px",
             width: "80%",
             height: "170vh",
-            bgcolor: "lightgrey",
+            bgcolor: "lightbeige",
             fontSize: "30px",
           }}
         >
@@ -207,7 +207,7 @@ function App() {
             sx={{
               width: "100%",
               height: 100,
-              bgcolor: "lightgrey",
+              bgcolor: "lightbeige",
               justifyContent: "center",
               alignItems: "space-between",
             }}
@@ -248,7 +248,7 @@ function App() {
             padding: "20px",
             width: "100%",
             height: 300,
-            bgcolor: "lightgrey",
+            bgcolor: "lightbeige",
             fontSize: "30px",
           }}
         >
