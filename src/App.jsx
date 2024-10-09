@@ -123,28 +123,60 @@ function App() {
               width: "100%",
               height: 100,
               bgcolor: "lightbeige",
-              justifyContent: "center",
+              margin: " 20px 20px 20px 0",
+              padding: "20px 20px 20px 0 ",
+              marginTop: "0px",
+              justifyContent: "space-between",
+              alignItems: "space-between",
             }}
           >
-            <Toolbar>
+            <Toolbar
+              position="static"
+              display="flex"
+              sx={{
+                width: "100%",
+                height: 100,
+                bgcolor: "lightbeige",
+                margin: " 20px 20px 20px 0",
+                // padding: "20px 20px 20px 0 ",
+                marginTop: "0px",
+                justifyContent: "start",
+                alignItems: "space-between",
+              }}
+            >
               <Typography
                 variant="h6"
                 component="div"
-                sx={{ MarginOutlined: "50px" }}
+                position="static"
+                display="flex"
+                sx={{
+                  margin: "20px",
+                  justifyContent: "space-between",
+                  alignItems: "space-between",
+                }}
               >
                 Neto Social
               </Typography>
-              {userResult.avatar === "" ? null : (
-                <Typography variant="h6" component="div">
-                  {userResult.name}
-                </Typography>
-              )}
-              <IconButton sx={{ p: 0 }}>
+              <Typography
+                variant="h6"
+                component="div"
+                sx={{
+                  margin: " 20px 20px 20px 0",
+                }}
+              >
+                {userResult.name}
+              </Typography>
+              <IconButton
+                sx={{
+                  margin: " 20px 20px 20px 0",
+                }}
+              >
                 <Avatar alt={userResult.name} src={userResult.avatar} />
               </IconButton>
 
               <Button
-                sx={{ bgcolor: "blue", color: "white" }}
+              position="absolute"
+                sx={{ display: "block", position: "absolute", bgcolor: "blue", color: "white", right: "30px", margin: " 20px 20px 20px 0" }}
                 onClick={handleClickLogout}
               >
                 Logout
@@ -155,7 +187,7 @@ function App() {
 
         <Box
           sx={{
-            margin: "auto",
+            margin: "30px",
             marginTop: "50px",
             padding: "20px",
             width: "80%",
@@ -208,6 +240,8 @@ function App() {
               width: "100%",
               height: 100,
               bgcolor: "lightbeige",
+              margin: "20px",
+              marginTop: "0px",
               justifyContent: "center",
               alignItems: "space-between",
             }}
