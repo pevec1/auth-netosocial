@@ -175,7 +175,6 @@ function App() {
               </IconButton>
 
               <Button
-              position="absolute"
                 sx={{ display: "block", position: "absolute", bgcolor: "blue", color: "white", right: "30px", margin: " 20px 20px 20px 0" }}
                 onClick={handleClickLogout}
               >
