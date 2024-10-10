@@ -226,10 +226,10 @@ function App() {
           <ul
             style={{
               display: "flex",
-              flexDirection: "row",
+              flexDirection: "column",
               flexWrap: "wrap",
               fontSize: "15px",
-              width: "100%",
+              // width: "100%",
               height: "100%",
             }}
           >
