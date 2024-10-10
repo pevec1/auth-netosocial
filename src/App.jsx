@@ -230,7 +230,7 @@ function App() {
               flexWrap: "wrap",
               fontSize: "15px",
               // width: "100%",
-              height: "100%",
+              // height: "100%",
             }}
           >
             {news?.map((item) => (
