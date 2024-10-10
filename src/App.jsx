@@ -241,6 +241,7 @@ function App() {
                   flexDirection: "row",
                   flexWrap: "wrap",
                   width: "40%",
+                  fontSize: "15px",
                 }}
                 key={item.id}
               >
