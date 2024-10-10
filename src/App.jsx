@@ -10,28 +10,22 @@ import IconButton from "@mui/material/IconButton";
 import TextField from "@mui/material/TextField";
 import Avatar from "@mui/material/Avatar";
 function App() {
-  const [data, setData] = useState({ login: "", password: "" });
-  const [datasubmit, setDataSubmit] = useState({ login: "", password: "" });
+  //const [data, setData] = useState({ login: "", password: "" });
+      const [email, setEmail] = useState("");
+      const [password, setPassword] = useState("");
+
+      const [emailError, setEmailError] = useState(false);
+      const [passwordError, setPasswordError] = useState(false);
+
+  const [datasubmit, setDataSubmit] = useState(JSON.parse(localStorage.getItem("datasubmit")));
   const [token, setToken] = useState(null);
-  const [userResult, setUserResult] = useState(null);
-  const [news, setNews] = useState(null);
+  const [userResult, setUserResult] = useState({name: "", avatar : ""});
+  const [news, setNews] = useState([]);
   const [flag, setFlag] = useState(false);
-
-  const onChange = (event) => {
-    const { target } = event;
-    console.log(target);
-    const { value } = target;
-    setData({ ...data, [target.name]: value });
-  };
-  const onSubmit = (event) => {
-    event.preventDefault();
-
-    const { target } = event;
-    const formData = new FormData(target);
-    setDataSubmit(Object.fromEntries(formData));
-  };
+  
+     //  const formData = new FormData(target);
   const loaddata = () => {
-    console.log(datasubmit);
+//    console.log(datasubmit);
     setTimeout(() => {
       fetch("https://authback.axareact.ru/auth", {
         method: "POST",
@@ -43,8 +37,9 @@ function App() {
         .then((response) => response.json())
         .then((result) => {
           if (result.message !== "user not found") {
-            setData(result.message);
+            setDataSubmit(result.message);
             setToken(result.token);
+            //console.log(result.token);//localStorage.setItem("token", result.token);
             setFlag(false);
           }
         })
@@ -53,11 +48,6 @@ function App() {
         });
     }, 1000);
   };
-
-  useEffect(() => {
-    loaddata();
-    // handleClickLogout();
-  }, [datasubmit]);
 
   const funcGetToken = () => {
     if (token) {
@@ -72,16 +62,25 @@ function App() {
         .then((result) => {
           setUserResult(result);
           setFlag(true);
+          //localStorage.setItem("flag", true);
         })
         .catch((error) => {
           console.error("Error:", error);
         });
     }
   };
-  console.log(userResult);
+  //console.log(userResult);
   useEffect(() => {
+    if (datasubmit) {
+      loaddata();
+    }
+    if (token) {
     funcGetToken();
-  }, [token]);
+    }
+    if (flag) {
+    funcGetNews();
+    }
+  }, [datasubmit, token, flag]);
 
   const funcGetNews = () => {
     fetch("https://authback.axareact.ru/private/news", {
@@ -99,23 +98,44 @@ function App() {
       .catch((error) => {
         console.error("Error:", error);
       });
-    }
+  };
 
-  useEffect(() => {
-    funcGetNews();
-  }, [token]);
+     const onSubmit = (event) => {
+       event.preventDefault();
+
+       setEmailError(false);
+       setPasswordError(false);
+
+       if (email == "") {
+         setEmailError(true);
+       }
+       if (password == "") {
+         setPasswordError(true);
+       }
+
+       if (email !== "" && password !== "") {
+         console.log(email, password);
+         setDataSubmit({ login: email, password: password });
+         localStorage.setItem(
+           "datasubmit",
+           JSON.stringify({ login: email, password: password })
+         );
+       }
+     };
+
   const handleClickLogout = () => {
     setDataSubmit({ login: "", password: "" });
-    setData({ login: "", password: "" });
+    localStorage.removeItem("datasubmit");
+    setDataSubmit({ login: "", password: "" });
     setToken(null);
     setUserResult(null);
     setFlag(false);
+    localStorage.removeItem("flag");
   };
-
   if (flag === true) {
     return (
       <>
-        <Box component="form" noValidate autoComplete="off" onSubmit={onSubmit}>
+        <Box component="form"  autoComplete="off" onSubmit={onSubmit}>
           <AppBar
             position="static"
             display="flex"
@@ -175,7 +195,14 @@ function App() {
               </IconButton>
 
               <Button
-                sx={{ display: "block", position: "absolute", bgcolor: "blue", color: "white", right: "30px", margin: " 20px 20px 20px 0" }}
+                sx={{
+                  display: "block",
+                  position: "absolute",
+                  bgcolor: "blue",
+                  color: "white",
+                  right: "30px",
+                  margin: " 20px 20px 20px 0",
+                }}
                 onClick={handleClickLogout}
               >
                 Logout
@@ -231,7 +258,7 @@ function App() {
   } else {
     return (
       <>
-        <Box component="form" noValidate autoComplete="off" onSubmit={onSubmit}>
+        <form noValidate autoComplete="off" onSubmit={onSubmit}>
           <AppBar
             position="static"
             display="flex"
@@ -239,41 +266,64 @@ function App() {
               width: "100%",
               height: 100,
               bgcolor: "lightbeige",
-              margin: "20px",
+              fontSize: "30px",
+              margin: "20px 20px 20px 20px",
               marginTop: "0px",
               justifyContent: "center",
               alignItems: "space-between",
             }}
           >
-            <Toolbar sx={{ justifyContent: "space-between" }}>
-              <Typography variant="h6" component="div">
+            <Toolbar>
+              <Typography
+                variant="h6"
+                component="div"
+                sx={{
+                  width: "100%",
+                  margin: " 20px 0 20px 0",
+                  fontSize: "30px",
+                }}
+              >
                 Neto Social
               </Typography>
               <TextField
-                required
                 id="outlined-required"
-                name="login"
-                // defaultValue="User Name"
-                value={data?.login || ""}
+                label="Email"
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                color="secondary"
+                type="email"
                 sx={{ bgcolor: "white" }}
-                onChange={onChange}
+                fullWidth
+                value={email}
+                error={emailError}
               />
               <TextField
                 id="outlined-password-input"
                 label="Password"
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                color="secondary"
                 type="password"
-                name="password"
-                value={data?.password || ""}
+                value={password}
+                error={passwordError}
+                fullWidth
                 sx={{ bgcolor: "white" }}
-                autoComplete="current-password"
-                onChange={onChange}
               />
-              <Button sx={{ bgcolor: "blue", color: "white" }} type="submit">
+              <Button
+                variant="outlined"
+                color="secondary"
+                type="submit"
+                sx={{
+                  bgcolor: "blue",
+                  color: "white",
+                  margin: " 20px 20px 20px 20px",
+                }}
+              >
                 Login
               </Button>
             </Toolbar>
           </AppBar>
-        </Box>
+        </form>
 
         <Box
           sx={{
