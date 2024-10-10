@@ -245,7 +245,7 @@ function App() {
                 }}
                 key={item.id}
               >
-                <h6>{item.title}</h6>
+                <h3>{item.title}</h3>
                 <p>
                   <img src={item.image} alt={item.title} />
                 </p>
