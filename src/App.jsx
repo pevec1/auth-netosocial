@@ -240,7 +240,7 @@ function App() {
                   display: "flex",
                   flexDirection: "row",
                   flexWrap: "wrap",
-                  width: "50%",
+                  // width: "50%",
                   fontSize: "15px",
                 }}
                 key={item.id}
